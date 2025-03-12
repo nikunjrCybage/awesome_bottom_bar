@@ -58,13 +58,14 @@ class Inspired extends StatefulWidget {
   final Color colorSelected;
   final double iconSize;
   final CountStyle? countStyle;
-  final TextStyle? titleStyle;
+  final TextStyle? activeTitleStyle;
   final double? sizeInside;
   final Duration? duration;
   final String animateStyle;
   final List<TabItem<dynamic>> items;
   final double? centerRadius;
   final LinearGradient? gradientColor;
+  final TextStyle? inActiveTitleStyle;
 
   const Inspired({
     Key? key,
@@ -73,6 +74,7 @@ class Inspired extends StatefulWidget {
     required this.color,
     required this.colorSelected,
     this.fixed = false,
+    this.inActiveTitleStyle,
     this.height = 40,
     this.initialActive,
     this.curve = Curves.easeInOut,
@@ -96,7 +98,7 @@ class Inspired extends StatefulWidget {
     this.fixedIndex = 0,
     this.iconSize = 22,
     this.countStyle,
-    this.titleStyle,
+    this.activeTitleStyle,
     this.sizeInside = 48,
     this.duration,
     this.animateStyle = 'flip',
@@ -337,18 +339,18 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
             duration: widget.duration ?? const Duration(milliseconds: 350),
             height: 80,
             curve: widget.curve,
-            bottomChild: buildContentItem(item, itemColor(), widget.iconSize, widget.sizeInside!),
+            bottomChild: buildContentItem(item, itemColor(), widget.iconSize, widget.sizeInside!,active),
           );
         } else {
           return TransitionContainer.scale(
             data: index,
             duration: widget.duration ?? const Duration(milliseconds: 350),
             curve: widget.curve,
-            child: buildContentItem(item, itemColor(), widget.iconSize, widget.sizeInside!),
+            child: buildContentItem(item, itemColor(), widget.iconSize, widget.sizeInside!,active),
           );
         }
       }
-      return buildContentItem(item, itemColor(), widget.iconSize, widget.sizeInside!);
+      return buildContentItem(item, itemColor(), widget.iconSize, widget.sizeInside!,active);
     }
 
     return Container(
@@ -367,7 +369,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
             SizedBox(height: widget.pad),
             Text(
               item.title!,
-              style: Theme.of(context).textTheme.labelSmall?.merge(widget.titleStyle).copyWith(color: itemColor()),
+              style: Theme.of(context).textTheme.labelSmall?.merge(active ?  widget.activeTitleStyle : widget.inActiveTitleStyle) ,
               textAlign: TextAlign.center,
             )
           ],
@@ -385,39 +387,45 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
     );
   }
 
-  Widget buildContentItem(TabItem item, Color itemColor, double iconSize, double sizeInside) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        if (widget.itemStyle == ItemStyle.circle)
-          Container(
-            width: sizeInside,
-            height: sizeInside,
-            decoration: BoxDecoration(color: widget.chipStyle?.background!, shape: BoxShape.circle),
-            alignment: Alignment.center,
-            child: BuildIcon(
-              item: item,
-              iconColor: widget.fixed ? widget.colorSelected : itemColor,
-              iconSize: iconSize,
-              countStyle: widget.countStyle,
+  Widget buildContentItem(TabItem item, Color itemColor, double iconSize, double sizeInside ,bool active) {
+
+    return Container(
+      margin: EdgeInsets.only(top: 37),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (widget.itemStyle == ItemStyle.circle)
+            Container(
+              width: sizeInside,
+              height: sizeInside,
+              decoration: BoxDecoration(color: widget.chipStyle?.background!, shape: BoxShape.circle),
+              alignment: Alignment.center,
+              child: BuildIcon(
+                item: item,
+                iconColor: widget.fixed ? widget.colorSelected : itemColor,
+                iconSize: iconSize,
+                countStyle: widget.countStyle,
+              ),
             ),
-          ),
-        if (widget.itemStyle == ItemStyle.hexagon)
-          HexagonWidget(
-            width: sizeInside,
-            height: sizeInside,
-            cornerRadius: 10,
-            color: widget.chipStyle?.background ?? Colors.blue,
-            child: BuildIcon(
-              item: item,
-              iconColor: widget.fixed ? widget.colorSelected : itemColor,
-              iconSize: iconSize,
-              countStyle: widget.countStyle,
+          if (widget.itemStyle == ItemStyle.hexagon)
+            HexagonWidget(
+              width: sizeInside,
+              height: sizeInside,
+              cornerRadius: 10,
+              color: widget.chipStyle?.background ?? Colors.blue,
+              child: BuildIcon(
+                item: item,
+                iconColor: widget.fixed ? widget.colorSelected : itemColor,
+                iconSize: iconSize,
+                countStyle: widget.countStyle,
+              ),
             ),
-          ),
-        
-      ],
+          SizedBox(height: 8,),
+          Text(item.title!,
+              style: Theme.of(context).textTheme.labelSmall?.merge(active ?  widget.activeTitleStyle : widget.inActiveTitleStyle) ,
+              textAlign: TextAlign.center)
+        ],
+      ),
     );
   }
 }

@@ -17,7 +17,8 @@ class BottomBarInspiredOutside extends StatefulWidget {
   final Color color;
   final Color colorSelected;
   final double iconSize;
-  final TextStyle? titleStyle;
+  final TextStyle? activeTitleStyle;
+  final TextStyle? inActiveTitleStyle;
   final CountStyle? countStyle;
   final ChipStyle? chipStyle;
   final ItemStyle? itemStyle;
@@ -50,7 +51,8 @@ class BottomBarInspiredOutside extends StatefulWidget {
     this.indexSelected = 0,
     this.onTap,
     this.iconSize = 22,
-    this.titleStyle,
+    this.activeTitleStyle,
+    this.inActiveTitleStyle,
     this.countStyle,
     this.chipStyle,
     this.itemStyle,
@@ -83,6 +85,7 @@ class _BottomBarInspiredOutsideState extends State<BottomBarInspiredOutside> {
       elevation: widget.elevation,
       animated: widget.animated,
       isAnimated: widget.animated,
+      inActiveTitleStyle: widget.inActiveTitleStyle,
       pad: widget.pad,
       padTop: widget.padTop,
       centerRadius: widget.centerRadius,
@@ -101,7 +104,7 @@ class _BottomBarInspiredOutsideState extends State<BottomBarInspiredOutside> {
       colorSelected: widget.colorSelected,
       iconSize: widget.iconSize,
       countStyle: widget.countStyle,
-      titleStyle: widget.titleStyle,
+      activeTitleStyle: widget.activeTitleStyle,
       sizeInside: widget.sizeInside,
       duration: widget.duration,
       curve: widget.curve ?? Curves.easeInOut,

@@ -15,7 +15,7 @@ class BottomBarInspiredInside extends StatefulWidget {
   final Color color;
   final Color colorSelected;
   final double iconSize;
-  final TextStyle? titleStyle;
+  final TextStyle? activeTitleStyle;
   final CountStyle? countStyle;
   final ChipStyle? chipStyle;
   final ItemStyle? itemStyle;
@@ -41,7 +41,7 @@ class BottomBarInspiredInside extends StatefulWidget {
     this.indexSelected = 0,
     this.onTap,
     this.iconSize = 22,
-    this.titleStyle,
+    this.activeTitleStyle,
     this.countStyle,
     this.chipStyle,
     this.itemStyle,
@@ -86,7 +86,7 @@ class _BottomBarInspiredInsideState extends State<BottomBarInspiredInside> {
       colorSelected: widget.colorSelected,
       iconSize: widget.iconSize,
       countStyle: widget.countStyle,
-      titleStyle: widget.titleStyle,
+      activeTitleStyle: widget.activeTitleStyle,
       sizeInside: widget.sizeInside,
       duration: widget.duration,
       curve: widget.curve ?? Curves.easeInOutCubic,
