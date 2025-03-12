@@ -239,9 +239,8 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
 
     var offset = FractionalOffset(count > 1 ? dx : 0.0, 0);
 
-    return extend.Stack(
+    return Stack(
       clipBehavior: Clip.none,
-      alignment: Alignment.bottomCenter,
       children: <Widget>[
         SizedBox(
           height: height,
@@ -274,7 +273,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
         _barContent(height, additionalBottomPadding, convexIndex),
         Positioned.fill(
           top: (widget.top! - widget.pad! - widget.padTop! - widget.padbottom!),
-          bottom: additionalBottomPadding,
+          bottom: additionalBottomPadding+20,
           child: FractionallySizedBox(
             widthFactor: factor,
             alignment: offset,
@@ -310,12 +309,13 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
       );
     }
     return Container(
-      height: height,
       padding: EdgeInsets.only(bottom: paddingBottom),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: children,
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: children,
+        ),
       ),
     );
   }
@@ -349,6 +349,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
       }
       return buildContentItem(item, itemColor(), widget.iconSize, widget.sizeInside!);
     }
+
     return Container(
       padding: EdgeInsets.only(bottom: widget.padbottom!, top: widget.padTop!),
       child: Column(
@@ -369,6 +370,15 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
               textAlign: TextAlign.center,
             )
           ],
+          const SizedBox(height: 20,),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              height: 4,
+              width: 68,
+              decoration: BoxDecoration(color: active ? itemColor() : Colors.transparent),
+            ),
+          )
         ],
       ),
     );
