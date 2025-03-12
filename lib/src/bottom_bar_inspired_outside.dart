@@ -35,7 +35,7 @@ class BottomBarInspiredOutside extends StatefulWidget {
   final double? radius;
   final int? fixedIndex;
   final double? centerRadius;
-  final Gradient? gradientColor;
+  final LinearGradient? gradientColor;
   const BottomBarInspiredOutside({
     Key? key,
     required this.items,

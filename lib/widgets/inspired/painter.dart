@@ -62,7 +62,7 @@ class ConvexPainter extends CustomPainter {
     this.leftPercent = const AlwaysStoppedAnimation<double>(0.5),
     this.textDirection,
     Color color = Colors.white,
-    Gradient? gradientColor,
+    LinearGradient? gradientColor,
     Color shadowColor = const Color.fromRGBO(0, 0, 0, 0.06),
     double sigma = 2,
     Gradient? gradient,
@@ -76,7 +76,7 @@ class ConvexPainter extends CustomPainter {
   }) : super(repaint: leftPercent) {
     if(gradientColor!=null){
       var rect = Offset.zero & Size(width, height);
-      _paint.shader = gradient?.createShader(rect);
+      _paint.shader = gradientColor.createShader(rect);
     }else{
       _paint.color = color;
     }

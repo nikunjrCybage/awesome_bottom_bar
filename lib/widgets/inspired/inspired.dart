@@ -64,7 +64,7 @@ class Inspired extends StatefulWidget {
   final String animateStyle;
   final List<TabItem<dynamic>> items;
   final double? centerRadius;
-  final Gradient? gradientColor;
+  final LinearGradient? gradientColor;
 
   const Inspired({
     Key? key,
