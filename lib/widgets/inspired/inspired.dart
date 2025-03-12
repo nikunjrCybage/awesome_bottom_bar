@@ -413,7 +413,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
               width: sizeInside,
               height: sizeInside,
               cornerRadius: 10,
-              color: active ? itemColor : widget.chipStyle?.background ?? itemColor,
+              color: active ? itemColor : widget.chipStyle?.color ?? itemColor,
               child: BuildIcon(
                 active: active,
                 item: item,
