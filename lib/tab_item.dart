@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class TabItem<T> {
-  final T icon;
+  final T activeIcon;
+  final T inActiveIcon;
   final String? title;
   final Widget? count;
   final String? key;
 
   const TabItem({
-    required this.icon,
+    required this.activeIcon,
+    required this.inActiveIcon,
     this.title,
     this.count,
     this.key,
-  }) : assert(icon is IconData || icon is Widget, 'TabItem only support IconData and Widget');
+  });
 }

@@ -8,21 +8,28 @@ class BuildIcon extends StatelessWidget {
   final double iconSize;
   final Color iconColor;
   final CountStyle? countStyle;
+  final  bool active;
 
   const BuildIcon({
     Key? key,
     required this.item,
     required this.iconColor,
     this.iconSize = 22,
-    this.countStyle,
+    this.countStyle,  this.active = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget icon = (item.icon is Widget) ? ColorFiltered(
+    Widget icon = active ? (item.activeIcon is Widget) ? ColorFiltered(
         colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-        child : item.icon) : Icon(
-      item.icon,
+        child : item.activeIcon) : Icon(
+      item.activeIcon,
+      size: iconSize,
+      color: iconColor,
+    ):(item.inActiveIcon is Widget) ? ColorFiltered(
+        colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+        child : item.inActiveIcon) : Icon(
+      item.inActiveIcon,
       size: iconSize,
       color: iconColor,
     );
@@ -32,11 +39,7 @@ class BuildIcon extends StatelessWidget {
       return Stack(
         clipBehavior: Clip.none,
         children: [
-          Icon(
-            item.icon,
-            size: iconSize,
-            color: iconColor,
-          ),
+          icon,
           PositionedDirectional(
             start: iconSize - sizeBadge / 2,
             top: -sizeBadge / 2,

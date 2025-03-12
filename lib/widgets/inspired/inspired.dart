@@ -361,6 +361,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
         children: [
           BuildIcon(
             item: item,
+            active :active,
             iconColor: itemColor(),
             iconSize: widget.iconSize,
             countStyle: widget.countStyle,
@@ -404,7 +405,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
                 item: item,
                 iconColor: widget.fixed ? widget.colorSelected : itemColor,
                 iconSize: iconSize,
-                countStyle: widget.countStyle,
+                countStyle: widget.countStyle, active: active,
               ),
             ),
           if (widget.itemStyle == ItemStyle.hexagon)
@@ -414,6 +415,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
               cornerRadius: 10,
               color: widget.chipStyle?.background ?? Colors.blue,
               child: BuildIcon(
+                active: active,
                 item: item,
                 iconColor: widget.fixed ? widget.colorSelected : itemColor,
                 iconSize: iconSize,
