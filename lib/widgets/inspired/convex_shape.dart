@@ -27,6 +27,7 @@ class ConvexNotchedRectangle extends NotchedShape {
   final double leftCornerRadius;
   final double rightCornerRadius;
   final Animation<double>? animation;
+  final double centerRadius;
 
   ConvexNotchedRectangle({
     required this.notchSmoothness,
@@ -35,6 +36,7 @@ class ConvexNotchedRectangle extends NotchedShape {
     this.convexBridge = false,
     this.leftCornerRadius = 0,
     this.rightCornerRadius = 0,
+    this.centerRadius=0,
     this.animation,
   });
 
@@ -113,10 +115,43 @@ class ConvexNotchedRectangle extends NotchedShape {
           radius: Radius.circular(leftCornerRadius),
           clockwise: true,
         )
-        ..lineTo(p[2].dx + 4, host.top)
-        ..conicTo(p[2].dx + 4, 2 * p[2].dy * 5.2 / 4, p[3].dx - 36, p[3].dy * 4.6, 6)
-        ..quadraticBezierTo(p[3].dx - 38, p[3].dy * 4.6, p[3].dx - 32, p[3].dy * 4.6)
-        ..conicTo(p[4].dx - 6.5, 2 * p[2].dy * 5.2 / 4, p[5].dx - 22, p[5].dy, 6)
+
+        ..lineTo(p[2].dx - centerRadius, host.top) // Straight line to the start of the curve
+
+// Small rounded transition before the curve
+        ..quadraticBezierTo(
+            p[2].dx + 5, host.top ,  // Control point slightly downward
+            p[2].dx + 5, host.top + 15   // End point creating the rounded effect
+        )
+
+
+// Now, the conic curve for the notch
+        ..conicTo(
+            p[2].dx + 4, 2 * p[2].dy * 5.2 / 4,
+            p[3].dx - 36, p[3].dy * 4.6,
+            6
+        )
+
+
+      // Smooth center radius using quadraticBezierTo (right side)
+        ..quadraticBezierTo(
+            p[3].dx - 38, p[3].dy * 4.6,
+            p[3].dx - 32, p[3].dy * 4.6
+        )
+
+      // Right-side conic curve for the notch
+        ..conicTo(
+            p[4].dx - 6.5, 2 * p[2].dy * 5.2 / 4,
+            p[4].dx - 6.5, p[4].dy+10 ,
+            6
+        )
+        ..quadraticBezierTo(
+            p[4].dx -5, host.top ,  // Control point slightly downward
+            p[4].dx + centerRadius, host.top    // End point creating the rounded effect
+        )
+
+
+      // Straight line completing the right side of the hexagonal notch
         ..lineTo(host.right - rightCornerRadius, host.top)
         ..arcToPoint(
           Offset(host.right, host.top + rightCornerRadius),
@@ -127,6 +162,7 @@ class ConvexNotchedRectangle extends NotchedShape {
         ..lineTo(host.right, host.bottom)
         ..lineTo(host.left, host.bottom)
         ..close();
+
     }
     if (convexBridge) {
       return Path()

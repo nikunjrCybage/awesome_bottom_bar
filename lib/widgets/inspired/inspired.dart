@@ -63,6 +63,9 @@ class Inspired extends StatefulWidget {
   final Duration? duration;
   final String animateStyle;
   final List<TabItem<dynamic>> items;
+  final double? centerRadius;
+  final Gradient? gradientColor;
+
   const Inspired({
     Key? key,
     required this.background,
@@ -74,9 +77,11 @@ class Inspired extends StatefulWidget {
     this.initialActive,
     this.curve = Curves.easeInOut,
     this.cornerRadius,
+    this.gradientColor,
     this.onTap,
     this.chipStyle,
     this.elevation,
+    this.centerRadius,
     this.top = -18,
     this.curveSize,
     this.containerSize,
@@ -246,12 +251,14 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
               top: drawHexagon || !convexBridge ? -38 : -22,
               width: widget.curveSize ?? converSize,
               height: 78,
+              centerRadius:widget.centerRadius,
               color: widget.background,
               shadowColor: widget.shadowColor ?? const Color.fromRGBO(0, 0, 0, 0.06),
               sigma: widget.elevation ?? 2,
               leftPercent: percent,
               textDirection: textDirection,
               isHexagon: isHexagon,
+              gradientColor:widget.gradientColor,
               drawHexagon: drawHexagon,
               notchSmoothness: notchSmoothness,
               convexBridge: convexBridge,
@@ -389,7 +396,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
           HexagonWidget(
             width: sizeInside,
             height: sizeInside,
-            cornerRadius: 8,
+            cornerRadius: 10,
             color: widget.chipStyle?.background ?? Colors.blue,
             child: BuildIcon(
               item: item,
@@ -398,6 +405,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
               countStyle: widget.countStyle,
             ),
           ),
+        
       ],
     );
   }

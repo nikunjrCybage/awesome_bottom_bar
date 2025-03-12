@@ -34,6 +34,8 @@ class BottomBarInspiredOutside extends StatefulWidget {
   final double? pad;
   final double? radius;
   final int? fixedIndex;
+  final double? centerRadius;
+  final Gradient? gradientColor;
   const BottomBarInspiredOutside({
     Key? key,
     required this.items,
@@ -42,6 +44,8 @@ class BottomBarInspiredOutside extends StatefulWidget {
     required this.colorSelected,
     this.height = 40,
     this.elevation,
+    this.centerRadius = 0,
+    this.gradientColor,
     this.fixed = false,
     this.indexSelected = 0,
     this.onTap,
@@ -81,6 +85,7 @@ class _BottomBarInspiredOutsideState extends State<BottomBarInspiredOutside> {
       isAnimated: widget.animated,
       pad: widget.pad,
       padTop: widget.padTop,
+      centerRadius: widget.centerRadius,
       padbottom: widget.padbottom,
       radius: widget.radius,
       fixedIndex: widget.fixedIndex,
@@ -100,6 +105,7 @@ class _BottomBarInspiredOutsideState extends State<BottomBarInspiredOutside> {
       sizeInside: widget.sizeInside,
       duration: widget.duration,
       curve: widget.curve ?? Curves.easeInOut,
+      gradientColor:widget.gradientColor,
       animateStyle: 'scale',
     );
   }

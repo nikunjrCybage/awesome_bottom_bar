@@ -51,6 +51,7 @@ class ConvexPainter extends CustomPainter {
 
   final double leftCornerRadius;
   final double rightCornerRadius;
+  final double? centerRadius;
 
   /// Create painter
   ConvexPainter({
@@ -61,6 +62,7 @@ class ConvexPainter extends CustomPainter {
     this.leftPercent = const AlwaysStoppedAnimation<double>(0.5),
     this.textDirection,
     Color color = Colors.white,
+    Gradient? gradientColor,
     Color shadowColor = const Color.fromRGBO(0, 0, 0, 0.06),
     double sigma = 2,
     Gradient? gradient,
@@ -70,8 +72,20 @@ class ConvexPainter extends CustomPainter {
     this.convexBridge = false,
     this.leftCornerRadius = 0,
     this.rightCornerRadius = 0,
+    this.centerRadius=0,
   }) : super(repaint: leftPercent) {
-    _paint.color = color;
+    if(gradientColor!=null){
+      var rect = Offset.zero & Size(width, height);
+      _paint.shader = LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        colors: gradientColor.colors,
+      ).createShader(rect);
+    }else{
+      _paint.color = color;
+    }
+
+
     try {
       _shadowPaint
         ..color = shadowColor
@@ -86,6 +100,7 @@ class ConvexPainter extends CustomPainter {
       convexBridge: convexBridge,
       leftCornerRadius: leftCornerRadius,
       rightCornerRadius: rightCornerRadius,
+      centerRadius:centerRadius ?? 0,
     );
   }
 
