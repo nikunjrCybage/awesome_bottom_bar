@@ -76,11 +76,7 @@ class ConvexPainter extends CustomPainter {
   }) : super(repaint: leftPercent) {
     if(gradientColor!=null){
       var rect = Offset.zero & Size(width, height);
-      _paint.shader = LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: gradientColor.colors,
-      ).createShader(rect);
+      _paint.shader = gradient?.createShader(rect);
     }else{
       _paint.color = color;
     }
