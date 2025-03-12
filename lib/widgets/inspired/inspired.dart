@@ -243,7 +243,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
       clipBehavior: Clip.none,
       children: <Widget>[
         SizedBox(
-          height: height,
+          height: height - widget.padbottom!,
           width: width,
           child: CustomPaint(
             painter: ConvexPainter(
@@ -273,7 +273,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
         _barContent(height, additionalBottomPadding, convexIndex),
         Positioned.fill(
           top: (widget.top! - widget.pad! - widget.padTop! - widget.padbottom!),
-          bottom: additionalBottomPadding+20,
+          bottom: additionalBottomPadding,
           child: FractionallySizedBox(
             widthFactor: factor,
             alignment: offset,
@@ -309,6 +309,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
       );
     }
     return Container(
+      height: height,
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: IntrinsicHeight(
         child: Row(
@@ -351,7 +352,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
     }
 
     return Container(
-      padding: EdgeInsets.only(bottom: widget.padbottom!, top: widget.padTop!),
+      padding: EdgeInsets.only( top: widget.padTop!),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -370,12 +371,12 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
               textAlign: TextAlign.center,
             )
           ],
-          const SizedBox(height: 20,),
+          Expanded(child: Container()),
           Align(
             alignment: Alignment.center,
             child: Container(
               height: 4,
-              width: 68,
+              width: 55,
               decoration: BoxDecoration(color: active ? itemColor() : Colors.transparent),
             ),
           )
