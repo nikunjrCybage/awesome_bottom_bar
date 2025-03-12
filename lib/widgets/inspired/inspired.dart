@@ -239,11 +239,11 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
 
     var offset = FractionalOffset(count > 1 ? dx : 0.0, 0);
 
-    return Stack(
+    return extend.Stack(
       clipBehavior: Clip.none,
       children: <Widget>[
         SizedBox(
-          height: height - widget.padbottom!,
+          height: height ,
           width: width,
           child: CustomPaint(
             painter: ConvexPainter(
