@@ -247,28 +247,40 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
         SizedBox(
           height: height ,
           width: width,
-          child: CustomPaint(
-            painter: ConvexPainter(
-              top: drawHexagon || !convexBridge ? -38 : -22,
-              width: widget.curveSize ?? converSize,
-              height: 78,
-              centerRadius:widget.centerRadius,
-              color: widget.background,
-              shadowColor: widget.shadowColor ?? const Color.fromRGBO(0, 0, 0, 0.06),
-              sigma: widget.elevation ?? 2,
-              leftPercent: percent,
-              textDirection: textDirection,
-              isHexagon: isHexagon,
-              gradientColor:widget.gradientColor,
-              drawHexagon: drawHexagon,
-              notchSmoothness: notchSmoothness,
-              convexBridge: convexBridge,
-              leftCornerRadius: widget.fixed && widget.fixedIndex == 0
-                  ? 0
-                  : (widget.initialActive == 0 && !widget.fixed ? 0 : widget.radius!),
-              rightCornerRadius: widget.fixed && widget.fixedIndex == count - 1
-                  ? 0
-                  : (widget.initialActive == count - 1 && !widget.fixed ? 0 : widget.radius!),
+          child: Container(
+            decoration: const BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black38,
+                  spreadRadius: 0,
+                  blurRadius: 16,
+                  offset: Offset(2, 0), // changes position of shadow
+                ),
+              ],
+            ),
+            child: CustomPaint(
+              painter: ConvexPainter(
+                top: drawHexagon || !convexBridge ? -38 : -22,
+                width: widget.curveSize ?? converSize,
+                height: 78,
+                centerRadius:widget.centerRadius,
+                color: widget.background,
+                shadowColor: widget.shadowColor ?? const Color.fromRGBO(0, 0, 0, 0.06),
+                sigma: widget.elevation ?? 2,
+                leftPercent: percent,
+                textDirection: textDirection,
+                isHexagon: isHexagon,
+                gradientColor:widget.gradientColor,
+                drawHexagon: drawHexagon,
+                notchSmoothness: notchSmoothness,
+                convexBridge: convexBridge,
+                leftCornerRadius: widget.fixed && widget.fixedIndex == 0
+                    ? 0
+                    : (widget.initialActive == 0 && !widget.fixed ? 0 : widget.radius!),
+                rightCornerRadius: widget.fixed && widget.fixedIndex == count - 1
+                    ? 0
+                    : (widget.initialActive == count - 1 && !widget.fixed ? 0 : widget.radius!),
+              ),
             ),
           ),
         ),

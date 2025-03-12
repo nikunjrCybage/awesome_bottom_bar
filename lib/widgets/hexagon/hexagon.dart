@@ -51,6 +51,16 @@ class HexagonWidget extends StatelessWidget {
         padding: EdgeInsets.all(padding),
         width: innerSize?.width,
         height: innerSize?.height,
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38,
+              spreadRadius: 0,
+              blurRadius: 20,
+              offset: Offset(0, 0), // changes position of shadow
+            ),
+          ],
+        ),
         child: CustomPaint(
           painter: HexagonPainter(
             pathBuilder,
