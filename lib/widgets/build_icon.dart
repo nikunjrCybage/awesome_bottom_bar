@@ -41,8 +41,8 @@ class BuildIcon extends StatelessWidget {
         children: [
           icon,
           Positioned(
-            right: -10,
-            top: -15,
+            right: -5,
+            top: -5,
             child: item.count!,
           ),
         ],
