@@ -40,9 +40,9 @@ class BuildIcon extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           icon,
-          PositionedDirectional(
-            start: iconSize - sizeBadge / 2,
-            top: -sizeBadge / 2,
+          Positioned(
+            right: -10,
+            top: -15,
             child: item.count!,
           ),
         ],
