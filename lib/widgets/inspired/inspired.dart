@@ -434,10 +434,10 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
                 countStyle: widget.countStyle,
               ),
             ),
-          SizedBox(height: 8,),
-          Text(item.title!,
+          item.title!=null ?SizedBox(height: 8,): Container(),
+          item.title!=null ? Text(item.title!,
               style: Theme.of(context).textTheme.labelSmall?.merge(active ?  widget.activeTitleStyle : widget.inActiveTitleStyle) ,
-              textAlign: TextAlign.center)
+              textAlign: TextAlign.center): Container()
         ],
       ),
     );

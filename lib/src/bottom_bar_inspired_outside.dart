@@ -37,6 +37,8 @@ class BottomBarInspiredOutside extends StatefulWidget {
   final int? fixedIndex;
   final double? centerRadius;
   final LinearGradient? gradientColor;
+  final double? curveSize;
+
   const BottomBarInspiredOutside({
     Key? key,
     required this.items,
@@ -68,7 +70,7 @@ class BottomBarInspiredOutside extends StatefulWidget {
     this.padbottom = 12,
     this.pad = 4,
     this.radius = 0,
-    this.fixedIndex = 0,
+    this.fixedIndex = 0, this.curveSize,
   }) : super(key: key);
 
   @override
@@ -96,7 +98,7 @@ class _BottomBarInspiredOutsideState extends State<BottomBarInspiredOutside> {
       items: widget.items,
       onTap: widget.onTap,
       chipStyle: widget.chipStyle ?? const ChipStyle(notchSmoothness: NotchSmoothness.defaultEdge),
-      curveSize: 70,
+      curveSize: widget.curveSize ?? 70,
       top: widget.top ?? -28,
       containerSize: 56,
       itemStyle: widget.itemStyle,

@@ -90,6 +90,7 @@ class ConvexPainter extends CustomPainter {
       debugPrintStack(label: 'ElevationError', stackTrace: s);
     }
     _shape = ConvexNotchedRectangle(
+      width:width,
       isHexagon: isHexagon,
       drawHexagon: drawHexagon,
       notchSmoothness: notchSmoothness,

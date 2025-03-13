@@ -28,10 +28,12 @@ class ConvexNotchedRectangle extends NotchedShape {
   final double rightCornerRadius;
   final Animation<double>? animation;
   final double centerRadius;
+  final double width;
 
-  ConvexNotchedRectangle({
+  ConvexNotchedRectangle( {
     required this.notchSmoothness,
     this.isHexagon = false,
+    required this.width,
     this.drawHexagon = false,
     this.convexBridge = false,
     this.leftCornerRadius = 0,
@@ -120,35 +122,37 @@ class ConvexNotchedRectangle extends NotchedShape {
 
 // Small rounded transition before the curve
         ..quadraticBezierTo(
-            p[2].dx + 5, host.top ,  // Control point slightly downward
-            p[2].dx + 5, host.top + 15   // End point creating the rounded effect
+            p[2].dx + (width*0.11), host.top ,  // Control point slightly downward
+            p[2].dx + (width*0.11), host.top + centerRadius   // End point creating the rounded effect
         )
 
 
 // Now, the conic curve for the notch
         ..conicTo(
-            p[2].dx + 4, 2 * p[2].dy * 5.2 / 4,
-            p[3].dx - 36, p[3].dy * 4.6,
+            p[2].dx +  (width*0.1), 2 * p[2].dy * 5.2 / 4,
+            p[3].dx - (width * 0.45) , p[3].dy + (width / 2.3),
             6
         )
 
 
       // Smooth center radius using quadraticBezierTo (right side)
         ..quadraticBezierTo(
-            p[3].dx - 38, p[3].dy * 4.6,
-            p[3].dx - 32, p[3].dy * 4.6
+            p[3].dx - (width * 0.9), p[3].dy * (width / 22),
+            p[4].dx - (width * 0.47), p[4].dy + (width * 0.49)
         )
+
 
       // Right-side conic curve for the notch
         ..conicTo(
-            p[4].dx - 6.5, 2 * p[2].dy * 5.2 / 4,
-            p[4].dx - 6.5, p[4].dy+10 ,
+            p[4].dx - (width*0.14) ,  p[4].dy +(width*0.3),
+            p[4].dx - (width*0.14) ,   p[4].dy+centerRadius  ,
             6
         )
         ..quadraticBezierTo(
-            p[4].dx -5, host.top ,  // Control point slightly downward
-            p[4].dx + centerRadius, host.top    // End point creating the rounded effect
+            p[4].dx - 10 , host.top ,  // Control point slightly downward
+            p[4].dx + centerRadius,  p[5].dy// End point creating the rounded effect
         )
+        ..lineTo(p[4].dx + centerRadius, host.top) // Straight line to the start of the curve
 
 
       // Straight line completing the right side of the hexagonal notch
