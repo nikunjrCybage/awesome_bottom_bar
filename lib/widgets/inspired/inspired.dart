@@ -113,6 +113,7 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
   Animation<double>? _animation;
   AnimationController? _animationController;
   TabController? _controller;
+  late double globalHeight;
 
   static const _transitionDuration = 100;
 
@@ -217,6 +218,9 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
     bool active = widget.fixed ? convexIndex == _currentIndex : true;
 
     double height = widget.height + additionalBottomPadding + widget.pad! + widget.padTop! + widget.padbottom!;
+    setState(() {
+      globalHeight  = height;
+    });
     double width = MediaQuery.of(context).size.width;
 
     Animation<double> percent = widget.fixed
@@ -305,12 +309,27 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
   Widget _barContent(double height, double paddingBottom, int curveTabIndex) {
     var children = <Widget>[];
     for (var i = 0; i < count; i++) {
+      var active = _currentIndex == i;
+
       String value = widget.items[i].key ?? '';
       if (i == curveTabIndex) {
-        children.add(Expanded(child: Container()));
+        children.add(Expanded(child: Container( padding: EdgeInsets.only( top: widget.padTop!),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: widget.iconSize+widget.pad!.toDouble(),
+              ),
+              widget.items[i].title!=null ? Text(widget.items[i].title!,
+                style: Theme.of(context).textTheme.labelSmall?.merge(active ?  widget.activeTitleStyle : widget.inActiveTitleStyle) ,
+                textAlign: TextAlign.center): Container(),
+              Expanded(child: Container()),
+            ],
+          ),
+        )));
         continue;
       }
-      var active = _currentIndex == i;
 
       children.add(Expanded(
         child: GestureDetector(
@@ -402,44 +421,37 @@ class _InspiredState extends State<Inspired> with TickerProviderStateMixin {
 
   Widget buildContentItem(TabItem item, Color itemColor, double iconSize, double sizeInside ,bool active) {
 
-    return Container(
-      margin: EdgeInsets.only(top: 37),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (widget.itemStyle == ItemStyle.circle)
-            Container(
-              width: sizeInside,
-              height: sizeInside,
-              decoration: BoxDecoration(color: widget.chipStyle?.background!, shape: BoxShape.circle),
-              alignment: Alignment.center,
-              child: BuildIcon(
-                item: item,
-                iconColor: widget.fixed ? widget.colorSelected : itemColor,
-                iconSize: iconSize,
-                countStyle: widget.countStyle, active: active,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        if (widget.itemStyle == ItemStyle.circle)
+          Container(
+            width: sizeInside,
+            height: sizeInside,
+            decoration: BoxDecoration(color: widget.chipStyle?.background!, shape: BoxShape.circle),
+            alignment: Alignment.center,
+            child: BuildIcon(
+              item: item,
+              iconColor: widget.fixed ? widget.colorSelected : itemColor,
+              iconSize: iconSize,
+              countStyle: widget.countStyle, active: active,
             ),
-          if (widget.itemStyle == ItemStyle.hexagon)
-            HexagonWidget(
-              width: sizeInside,
-              height: sizeInside,
-              cornerRadius: 10,
-              color: active ? itemColor : widget.chipStyle?.color ?? itemColor,
-              child: BuildIcon(
-                active: active,
-                item: item,
-                iconColor: widget.fixed ? widget.colorSelected : itemColor,
-                iconSize: iconSize,
-                countStyle: widget.countStyle,
-              ),
+          ),
+        if (widget.itemStyle == ItemStyle.hexagon)
+          HexagonWidget(
+            width: sizeInside,
+            height: sizeInside,
+            cornerRadius: 10,
+            color: active ? itemColor : widget.chipStyle?.color ?? itemColor,
+            child: BuildIcon(
+              active: active,
+              item: item,
+              iconColor: widget.fixed ? widget.colorSelected : itemColor,
+              iconSize: iconSize,
+              countStyle: widget.countStyle,
             ),
-          item.title!=null ?SizedBox(height: 8,): Container(),
-          item.title!=null ? Text(item.title!,
-              style: Theme.of(context).textTheme.labelSmall?.merge(active ?  widget.activeTitleStyle : widget.inActiveTitleStyle) ,
-              textAlign: TextAlign.center): Container()
-        ],
-      ),
+          ),
+      ],
     );
   }
 }
